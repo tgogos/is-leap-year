@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+<pre id="txt-cal"></pre>
+
+<script>
+
+var text =  "year  1    2    3   #\n";
+    text += "======================\n";
+var year = new Date().getFullYear();
+
+
+for (year=0 ; year<=3000 ; year++) {
+	line = "";
+	col0 = year.toString().padStart(4,0);
+	col1 = isLeap_1(year)?"  y  ":"  n  ";
+	col2 = isLeap_2(year)?"  y  ":"  n  ";
+	col3 = isLeap_3(year)?"  y  ":"  n  ";
+	col4 = ((col1==col2) && (col2==col3))?" ✅":" ❌";
+
+	line = col0 + col1 + col2 + col3 + col4 + "\n";
+	text = text + line;
+}
+
+
+
+
+
+// from: https://stackoverflow.com/questions/8175521/javascript-to-find-leap-year
+// 
+function isLeap_1(year) {
+	return (new Date(year, 1, 29).getMonth() == 1);
+}
+
+
+
+// from: https://stackoverflow.com/questions/3220163/how-to-find-leap-year-programmatically-in-c
+// 
+function isLeap_2(year) {
+	return ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0));
+}
+
+
+// from: https://stackoverflow.com/questions/16353211/check-if-year-is-leap-year-in-javascript
+// 
+function isLeap_3(year) {
+	return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+}
+
+document.querySelector('#txt-cal').innerHTML = text;
+</script>
+</body>
+</html>
